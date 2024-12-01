@@ -31,9 +31,22 @@ return {
 			lspconfig.pyright.setup({
 				capabilities = capabilities,
 			})
+
+      local function toggle_lsp()
+				for _, client in pairs(vim.lsp.get_active_clients()) do
+					vim.lsp.stop_client(client.id)
+				end
+				print("LSP stopped. Reload the buffer to restart.")
+			end
+
+      -- Keymaps
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
 			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
+
+      --Keybindings for toggling lsp
+      vim.keymap.set("n", "<leader>lt", toggle_lsp, {desc = "Toggle LSP"})
+
 		end,
 	},
 }
