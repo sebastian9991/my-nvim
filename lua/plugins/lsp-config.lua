@@ -25,11 +25,17 @@ return {
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local lspconfig = require("lspconfig")
+			local python_root_files = {
+				"pyproject.toml",
+                "pyrightconfig.json"
+			}
+			table.unpack = table.unpack or unpack
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
 			})
 			lspconfig.pyright.setup({
 				capabilities = capabilities,
+				root_dir = lspconfig.util.root_pattern(table.unpack(python_root_files)),
 			})
 
 			-- Added setup diagnostics display (FIXES BUG?)
@@ -40,6 +46,7 @@ return {
 				update_in_insert = false,
 				severity_sort = true,
 			})
+			vim.lsp.set_log_level("off") -- Remove logging of LSP
 			local function toggle_lsp()
 				for _, client in pairs(vim.lsp.get_active_clients()) do
 					vim.lsp.stop_client(client.id)
