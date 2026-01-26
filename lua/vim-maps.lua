@@ -6,6 +6,7 @@ vim.cmd("set shiftwidth=2")
 vim.g.mapleader = " "
 vim.g.background = "light"
 
+
 --###Editor settings###
 --relative line numbers
 vim.opt.nu = true
@@ -82,3 +83,10 @@ vim.keymap.set("n", "Q", "<nop>")
 
 --Use OG file viewer
 vim.keymap.set("n", "<leader>ee", ':Explore<CR>')
+
+-- Toggle TS context
+vim.keymap.set("n", "<leader>tc", ":TSContext<CR>", { silent = true, desc = "Toggle Treesitter Context" })
+-- This is the most reliable way to toggle the context
+-- vim.keymap.set("n", "<leader>tc", function()
+--     require("treesitter-context").toggle()
+-- end, { silent = true, desc = "Toggle Treesitter Context" })

@@ -40,7 +40,9 @@ return {
 
 			-- Added setup diagnostics display (FIXES BUG?)
 			vim.diagnostic.config({
-				virtual_text = true,
+				virtual_text = {
+                    severity = {min = vim.diagnostic.severity.ERROR}, --Only show errors?
+                },
 				signs = true,
 				underline = true,
 				update_in_insert = false,
